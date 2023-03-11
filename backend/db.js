@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/todos';
 const MONGO_DB = process.env.MONGO_DB || 'todos';
@@ -19,18 +19,18 @@ export default class DB {
     }
 
     queryById(id) {
-        // TODO: Implement queryById
+        return collection.findOne({'_id': new ObjectId(id)});
     }
 
     update(id, order) {
-        // TODO: Implement update
+        return collection.updateOne({'_id': new ObjectId(id)},{$set: order});
     }
 
     delete(id) {
-        // TODO: Implement delete
+        return collection.deleteOne({'_id': new ObjectId(id)});
     }
 
     insert(order) {
-        // TODO: Implement insert
+        return collection.insertOne(order)
     }
 }
